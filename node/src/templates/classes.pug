@@ -1,0 +1,19 @@
+doctype html
+html
+	include head.pug
+body
+	include header_lender.pug
+
+
+div(id='adbox')
+	div(class='clearfix')
+		div
+			h1 Asset Types
+			br
+			br
+			each c in classes
+				a(href='/createasset?classid='+c.id)
+					h2=c.name
+				p=c.description
+
+include footer.pug

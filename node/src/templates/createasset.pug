@@ -1,0 +1,20 @@
+doctype html
+html
+	include head.pug
+body
+	include header_lender.pug
+
+div(id='adbox')
+	div(class='clearfix')
+		div
+			h2 Create #{name} asset
+			div(style='margin-left:20px; margin-top:20px')
+				form(method='post' action='/createasset')
+					each f in fields
+						p=f+":"
+						input.form-control(name=f)
+						br
+					br
+					input(type='submit', value='Create')
+
+include footer.pug

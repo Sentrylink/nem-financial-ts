@@ -1,0 +1,13 @@
+doctype html
+html
+	include head.pug
+body
+	include header_noauth.pug
+
+script.
+	window.onload = function(e){ 
+		console.log("window.onload");
+		window.location.replace("/lender");
+	}
+
+include footer.pug

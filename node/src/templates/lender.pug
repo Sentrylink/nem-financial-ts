@@ -1,0 +1,18 @@
+doctype html
+html
+	include head.pug
+body
+	include header_lender.pug
+
+div(id='adbox')
+	div(class='clearfix')
+		img(src="images/home_blockchain.jpeg" height="280" width="368")
+		div
+			h1 Lender Home
+			h2 That's what we live for.
+			p Financial application POC
+			br
+			br
+			button(onclick="window.location.href = '/'") Logout
+
+include footer.pug
