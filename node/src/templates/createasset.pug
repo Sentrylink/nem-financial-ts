@@ -8,11 +8,15 @@ div(id='adbox')
 	div(class='clearfix')
 		div
 			h2 Create #{name} asset
+			h3 Your remaining balance: #{balance} NEM
 			div(style='margin-left:20px; margin-top:20px')
 				form(method='post' action='/createasset')
 					each f in fields
 						p=f+":"
-						input.form-control(name=f)
+						if f=='Debtor Address'
+							input.form-control(name=f required value='TCGRAE-7DHO2E-OBSE5V-FUKVQC-AZ2ZLT-Z5FLKK-TYS5')
+						else
+							input.form-control(name=f required)
 						br
 					br
 					input(type='submit', value='Create')

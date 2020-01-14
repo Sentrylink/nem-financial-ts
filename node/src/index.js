@@ -1,7 +1,14 @@
+const BigNumber = require('bignumber.js');
 const bodyParser = require('body-parser');
+const config = require('./config');
 const express = require('express');
+const NemAPI = require('./nemapi');
 const pug = require('pug');
 const session = require('express-session');
+
+
+////////////////////////////////////////////////////////////
+// Initialize Express
 
 const app = express();
 app.use( bodyParser.json() );
@@ -17,8 +24,31 @@ app.use('/fonts', express.static('src/templates/fonts'))
 
 const port = 8080;
 
-let sessions = {};
+////////////////////////////////////////////////////////////
+// Initialize NEM SDK
 
+const nemApi = new NemAPI(config.apiUrl);
+
+
+
+/*
+const address = Address.createFromRawAddress(config.lenderAddress);
+const repositoryFactory = new RepositoryFactoryHttp(config.apiUrl);
+const accountHttp = repositoryFactory.createAccountRepository();
+
+accountHttp
+    .getAccountInfo(address)
+    .subscribe((accountInfo) => 
+      {
+        //console.log("Mosaic ID: ", accountInfo.mosaics[0].id);
+        console.log("Balance: ", BigNumber(accountInfo.mosaics[0].amount).toFixed());
+      },
+      (err) => console.error(err));
+*/
+
+
+////////////////////////////////////////////////////////////
+// Initialize routes
 app.get('/', function (req, res) {
 	//console.log(req.session.id)
   const compiledFunction = pug.compileFile('src/templates/index.pug');
@@ -53,16 +83,18 @@ app.get('/classes', function (req, res) {
   }));
 });
 
-app.get('/createasset', function (req, res) {
+app.get('/createasset', async function (req, res) {
   const classId = req.body.classid;
   const compiledFunction = pug.compileFile('src/templates/createasset.pug');
 
   // Load class from DB and determine what fields we need from the Lender
   const fields = ['Debt Amount', 'Interest Rate', 'Maturity Date', 'Debtor Address'];
+  const bal = await nemApi.getBalance(config.lenderAddress);
 
 	res.send(compiledFunction({
     name: "sPAM",
-    fields: fields
+    fields: fields,
+    balance: bal
   }));
 });
 
@@ -79,9 +111,12 @@ app.get('/assets', function (req, res) {
   }));
 });
 
+app.get('/test', async function (req, res) {
 
-// Для получения переменных из HTML формы
-// let login = req.body.login,
+  let b = await nemApi.getBalance(config.lenderAddress);
+
+	res.send('Balance: ' + BigNumber(b).toFixed());
+});
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
