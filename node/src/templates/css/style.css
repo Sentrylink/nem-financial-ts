@@ -160,6 +160,14 @@ p {
 p a {
 	color: #585858;
 }
+table {
+	border-collapse: collapse;
+	margin-left: 20px;
+}
+td, th {
+	padding-left: 10px;
+	padding-right: 10px;
+}
 #tagline h1 {
 	margin-left: 20px;
 }

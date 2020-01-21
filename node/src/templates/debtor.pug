@@ -1,0 +1,18 @@
+doctype html
+html
+	include head.pug
+body
+	include header_debtor.pug
+
+div(id='adbox')
+	div(class='clearfix')
+		img(src="images/home_blockchain.jpeg" height="280" width="368")
+		div
+			h1 Client Home
+			h2 Welcome to NEM Financials.
+			p This is financial application POC
+			br
+			br
+			button(onclick="window.location.href = '/'") Logout
+
+include footer.pug

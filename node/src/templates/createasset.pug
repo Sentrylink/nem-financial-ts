@@ -12,10 +12,18 @@ div(id='adbox')
 			div(style='margin-left:20px; margin-top:20px')
 				form(method='post' action='/createasset')
 					each f in fields
-						p=f+":"
 						if f=='Debtor Address'
+							p=f+":"
 							input.form-control(name=f required value='TCGRAE-7DHO2E-OBSE5V-FUKVQC-AZ2ZLT-Z5FLKK-TYS5')
+						else if f=='Interest Rate'
+							p=f+' (annual):'
+							input.form-control(name=f required value='50')
+							span %
+						else if f=='Maturity Date'
+							p=f+":"
+							input.form-control(name=f required value=maturity)
 						else
+							p=f+":"
 							input.form-control(name=f required)
 						br
 					br

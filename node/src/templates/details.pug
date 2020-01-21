@@ -1,0 +1,44 @@
+doctype html
+html
+	include head.pug
+body
+	include header_debtor.pug
+
+div(id='adbox')
+	div(class='clearfix')
+		div
+			h1 Loan Details
+			br
+			table.table(border=0)
+				tr
+					td Class Name
+					td #{asset.class_name}
+				tr
+					td Status
+					td #{asset.asset_status}
+				tr
+					td Principal Amount
+					td #{asset.loan_amount} NEM
+				tr
+					td Maturity Date
+					td #{asset.maturity_dt}
+				tr
+					td Interest Rate (Annual)
+					td #{asset.interest_rate*100} %
+				tr
+					td Accrued Interest Amount
+					td #{parseInt(accruedInterest*1000)/1000} NEM
+				tr
+					td Total Interest Amount
+					td #{parseInt(asset.interest_amount * 1000)/1000} NEM
+				tr
+					td Total Paid at Maturity
+					td #{parseInt(asset.loan_amount + asset.interest_amount * 1000)/1000} NEM
+				tr
+					td Amount Due Now
+					td #{parseInt(dueNow * 1000)/1000} NEM
+			br
+			br
+			button(onclick="window.location.href = '/loans'") Go Back
+
+include footer.pug

@@ -1,0 +1,32 @@
+doctype html
+html
+	include head.pug
+body
+	include header_lender.pug
+
+div(id='adbox')
+	div(class='clearfix')
+		div
+			h2 Your assets
+			div(style='margin-left:20px; margin-top:20px; margin-bottom:50px;')
+				table.table(border=1)
+					tr
+						th ID
+						th Class Name
+						th Loan Amount
+						th Interest Rate
+						th Interest Amount
+						th Open Date
+						th Maturity Date
+						th Status
+					tbody
+						each a in assets
+							tr
+								td=a.id
+								td=a.class_name
+								td=a.loan_amount
+								td=100*a.interest_rate+' %'
+								td=a.interest_amount
+								td=a.open_dt
+								td=a.maturity_dt
+								td=a.asset_status

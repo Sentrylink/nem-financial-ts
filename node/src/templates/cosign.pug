@@ -1,0 +1,35 @@
+doctype html
+html
+	include head.pug
+body
+	include header_debtor.pug
+
+div(id='adbox')
+	div(class='clearfix')
+		div
+			h1 Accept Loan
+			h2 Are you sure you want to accept this loan?
+			br
+			table.table(border=0)
+				tr
+					td Class Name
+					td #{asset.class_name}
+				tr
+					td Loan Amount
+					td #{asset.loan_amount} NEM
+				tr
+					td Annual Interest Rate
+					td #{asset.interest_rate*100} %
+				tr
+					td Total Interest Amount
+					td #{parseInt(asset.interest_amount * 1000)/1000} NEM
+				tr
+					td Due Date
+					td #{asset.maturity_dt}
+			br
+			br
+			button(onclick="window.location.href = '/docosign?id=" + assetId + "'") Yes, Sign
+			span &nbsp;&nbsp;
+			button(onclick="window.location.href = '/loans'") Cancel
+
+include footer.pug

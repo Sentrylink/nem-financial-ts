@@ -1,0 +1,40 @@
+doctype html
+html
+	include head.pug
+body
+	include header_debtor.pug
+
+div(id='adbox')
+	div(class='clearfix')
+		div
+			h2 Your Balance
+			h3 #{balance} NEM
+			h2 Your Loans
+			div(style='margin-left:20px; margin-top:20px; margin-bottom:50px;')
+				table.table(border=1)
+					tr
+						th ID
+						th Class Name
+						th Loan Amount
+						th Interest Rate
+						th Details
+						th Status
+						th Actions
+					tbody
+						each a in assets
+							tr
+								td=a.id
+								td=a.class_name
+								td=a.loan_amount
+								td=a.interest_rate
+								td
+									a(href="/details?id="+a.id) Details
+								td=a.asset_status
+								if a.asset_status=='Pending'
+									td 
+										button(onclick="window.location.href = '/cosign?id="+a.id+"'") Accept
+								else if a.asset_status=='Overdue'
+									td 
+										button(onclick="window.location.href = '/pay?id="+a.id+"'") Pay Now
+								else
+									td 
